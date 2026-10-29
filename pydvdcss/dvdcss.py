@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import re
+import sys
 from ctypes import (
     CDLL,
     POINTER,
@@ -15,7 +16,7 @@ from ctypes import (
 )
 from ctypes.util import find_library
 from pathlib import Path
-from typing import Any, Literal
+from typing import Literal
 
 from pydvdcss import constants, exceptions
 from pydvdcss._types import ReadFlag_T, SeekFlag_T
@@ -27,6 +28,11 @@ from pydvdcss.structs import (
     iovecs,
 )
 from pydvdcss.utilities import message_with_error
+
+if sys.version_info < (3, 11):
+    from typing_extensions import Self
+else:
+    from typing import Self
 
 
 class DvdCss:
@@ -78,10 +84,10 @@ class DvdCss:
         self.handle: int | None = None
         self._library = self._load_library()
 
-    def __enter__(self) -> DvdCss:
+    def __enter__(self) -> Self:
         return self
 
-    def __exit__(self, *_: Any, **__: Any) -> None:
+    def __exit__(self, *_: object, **__: object) -> None:
         self.close()
 
     def open(self, target: str | os.PathLike[str]) -> int:

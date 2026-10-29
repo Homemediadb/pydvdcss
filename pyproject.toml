@@ -27,7 +27,9 @@ classifiers = [
     "Topic :: Multimedia :: Video :: Conversion",
     "Topic :: Security :: Cryptography",
 ]
-dependencies = []
+dependencies = [
+    "typing-extensions>=4.15.0;  python_version < '3.11'",
+]
 
 [project.urls]
 Repository = "https://github.com/homemediadb/pydvdcss"
